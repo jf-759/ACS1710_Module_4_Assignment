@@ -2,32 +2,52 @@
 {% block content %}
 
 <section class="weather-form">
-    {# 
-        TODO: Replace the hard-coded cities and date below with data from the 
-        server.
-    #}
-    <h1>Weather in [CITY1] and [CITY2]</h1>
-    <p>[TODAYS_DATE]</p>
+
+    <h1>Weather in {{ CITY1 }} and {{ CITY2 }}</h1>
+    <p>{{ TODAYS_DATE }}</p>
+
+    <div>
+        <h2> {{ city1 }}</h2>
+        <img src="http://openweathermap.org/img/wn/{{ city1_icon }}@2x.png" alt="Weather icon for {{ city1 }}">
+        <ul>
+            <li>Temperature: {{ temp1 }}° {{ units }}</li>
+            <li>Humidity: {{ humidity1 }}%</li>
+            <li>Wind speed: {{ wind_speed1 }} miles/hour</li>
+            <li>Sunset: {{ sunset1 }}</li> 
+        </ul>
+    </div>
+
+    <div>
+        <h2>{{ city2 }}</h2>
+        <img src="http://openweathermap.org/img/wn/{{ city2_icon }}@2x.png" alt="Weather icon for {{ city2 }}">
+        <ul>
+            <li>Temperature: {{ temp2 }}° {{ units }}</li>
+            <li>Humidity: {{ humdiity2 }}%</li>
+            <li>Wind speed: {{ wind_speed2 }} miles/hour</li>
+            <li>Sunset: {{ sunset2 }}</li>
+        </ul>
+    </div>
 
 
-    {#
-        TODO: Add the temperature, description, and min & max temperature below.
-        Replace 'F' with the appropriate units.
-    #}
     <p>
-        It is [NUM_DEGREES] [UNITS] [WARMER/COLDER] in [CITY1] than in [CITY2] today.
+        It is {{ (temp_diff) }}° {{ UNITS }} 
+        {{ "warmer" if temp_diff > 0 else "colder" }} in {{ CITY1 }} than in {{ CITY2 }} today.
     </p>
 
     <p>
-        The humidity in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+        The humidity in {{ CITY1 }} is {{ (humidity_diff) }} 
+        {{ 'greater' if humidity_diff > 0 else 'less' }} than in {{ CITY2 }}.
     </p>
 
     <p>
-        The wind speed in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+        The wind speed in {{ CITY1 }} is {{ (wind_speed_diff) }}m/s 
+        {{ 'greater' if wind_speed_diff > 0 else 'less' }} than in {{ CITY2 }}.
     </p>
 
     <p>
-        The sun sets in [CITY1] [HOURS] hours [EARLIER/LATER] than in [CITY2].
+        The sun sets in {{ CITY1 }} 
+        {{ (sunset_diff_hours) | round(1) }} hours 
+        {{ 'later' if sunset_diff_hours > 0 else 'earlier' }} than in {{ CITY2 }}.
     </p>
     
 </section>
